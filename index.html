@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI in 2026 — A Personal Perspective</title>
+
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/reveal/theme/black.css" id="theme">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ============================================================
+           Conventions (read before adding slides):
+           - Slide body: English. Speaker notes: Chinese.
+           - One idea per slide. Add a new slide by copying a <section>.
+           - Speaker notes go in <aside class="notes">…</aside>;
+             press "S" during the talk to open the speaker view.
+           - Put images in images/ and reference them as images/xxx.png.
+           - Put every external source into references.md, and cite it
+             on the slide with <p class="citation">Source: …</p>.
+           ============================================================ -->
+
+      <!-- Title slide -->
+      <section>
+        <h1>AI in 2026</h1>
+        <h3>A Personal Perspective on Where We Are and What's Next</h3>
+        <p class="citation">https://ai-in-2026.xiaomum.com</p>
+        <aside class="notes">
+          开场白：自我介绍，说明这是一场基于个人视角的分享，
+          所有引用资料都列在 references.md，幻灯片本身托管在 GitHub Pages 上。
+        </aside>
+      </section>
+
+      <!-- Example: agenda slide. Replace with your own outline. -->
+      <section>
+        <h2>Agenda</h2>
+        <ul>
+          <li>Where AI stands in mid-2026</li>
+          <li>What changed my own work</li>
+          <li>Trends worth watching</li>
+          <li>Open questions</li>
+        </ul>
+        <aside class="notes">
+          说明演讲结构：现状 → 个人体验 → 趋势 → 开放问题。全程约 20-30 分钟。
+        </aside>
+      </section>
+
+      <!-- Example: content slide with citation. Duplicate this block per topic. -->
+      <section>
+        <h2>Topic Placeholder</h2>
+        <ul>
+          <li>Key fact or claim goes here</li>
+          <li>Supporting data point</li>
+        </ul>
+        <p class="citation">Source: Example Report, 2026 — see references.md</p>
+        <aside class="notes">
+          每个事实都要有出处。数据来源写进 references.md，幻灯片底部用 citation 标注。
+          个人观点或预测要明确和事实区分开（比如用 "My take:" 开头）。
+        </aside>
+      </section>
+
+      <!-- References slide: keep in sync with references.md -->
+      <section>
+        <h2>References</h2>
+        <p>All sources: <a href="references.md">references.md</a> (in the GitHub repo)</p>
+        <aside class="notes">
+          结束语：感谢聆听，引用全部公开在仓库里，欢迎扫码或访问域名查看。
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="vendor/reveal/reveal.js"></script>
+  <script src="vendor/reveal/plugin/notes.js"></script>
+  <script src="vendor/reveal/plugin/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'slide',
+      plugins: [ RevealNotes, RevealHighlight ]
+    });
+  </script>
+</body>
+</html>

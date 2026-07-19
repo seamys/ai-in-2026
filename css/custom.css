@@ -1,0 +1,16 @@
+/* Talk-wide overrides for AI in 2026 slides. Keep minimal. */
+
+/* Small source/credit line at the bottom of a slide */
+.reveal .citation {
+  font-size: 0.5em;
+  color: #999;
+  margin-top: 1.2em;
+}
+
+/* Keep slide images from blowing past the viewport */
+.reveal section img {
+  max-height: 55vh;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
