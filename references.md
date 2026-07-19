@@ -16,6 +16,31 @@ that label consistent with the entry below.
 - Notes: (optional) caveats, e.g. "company self-reported figure"
 ```
 
+## Personal experiences (not external sources)
+
+The two stories in Part 1 are the author's own first-hand experiences, not
+third-party claims. They are listed here only for traceability and to keep them
+visibly distinct from sourced facts.
+
+### GoPro microSD recovery via Claude Code
+- What happened: ~200 GB of GoPro footage on a microSD card became unreadable
+  after an unsafe eject; every free tool and several expensive "pro" recovery
+  apps failed or returned partial / corrupted output (no audio, mid-stream
+  glitches). Claude Code hex-dumped the raw block device, then chained Linux
+  CLI forensic tools and recovered every clip intact.
+- When: 2026-05 (May Day trip)
+- Tool: Claude Code (Anthropic), on the raw block device
+
+### USB hub power-supply diagnosis via opencode
+- What happened: in a dual-host + USB-switch + USB-hub desk setup, the speaker
+  and microphone intermittently went silent while all other USB devices worked.
+  opencode wrote PowerShell to enumerate and check every USB device, concluded
+  in ~60 s that the hardware was healthy and the likely cause was insufficient
+  USB power, and suggested plugging audio into the motherboard to verify. The
+  hub's unused DC power jack turned out to be the fix.
+- When: 2026-07 (a few weeks before the talk)
+- Tool: opencode (local agent)
+
 ## Entries
 
 ### Example entry — replace with real sources

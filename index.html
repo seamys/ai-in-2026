@@ -50,17 +50,147 @@
         </aside>
       </section>
 
-      <!-- Example: content slide with citation. Duplicate this block per topic. -->
+      <!-- ============================================================
+           Part 1 — Two real stories from my own desk (first half of 2026).
+           Personal experience, not external claims — see references.md.
+           ============================================================ -->
+
       <section>
-        <h2>Topic Placeholder</h2>
-        <ul>
-          <li>Key fact or claim goes here</li>
-          <li>Supporting data point</li>
-        </ul>
-        <p class="citation">Source: Example Report, 2026 — see references.md</p>
+        <h2>Part 1 — From my own desk</h2>
+        <h3>Two real stories from the first half of 2026</h3>
+        <p>No theory, no benchmarks — just things that actually happened to me.</p>
         <aside class="notes">
-          每个事实都要有出处。数据来源写进 references.md，幻灯片底部用 citation 标注。
-          个人观点或预测要明确和事实区分开（比如用 "My take:" 开头）。
+          过渡到第一部分。在讲任何趋势和判断之前，先讲两个今年上半年真真切切发生在我身上的故事。
+          目的不是炫技，而是让大家直观地感受 2026 年的 AI 到底能干什么——
+          它已经不只是"回答问题"，而是真正能"动手解决问题"。
+        </aside>
+      </section>
+
+      <section>
+        <h2>Story 1 — 200&nbsp;GB of GoPro footage, gone</h2>
+        <ul>
+          <li>May Day trip, ~200&nbsp;GB of GoPro video on a microSD card</li>
+          <li>Pulled the card without ejecting safely → card became unreadable</li>
+          <li>Every free recovery tool I could find: failed</li>
+          <li>Paid "pro" recovery software (the expensive ones): only partial
+              recovery — video glitched mid-stream, or audio gone entirely</li>
+        </ul>
+        <p class="citation">Personal experience, May 2026</p>
+        <aside class="notes">
+          第一个故事。今年五一出去玩，GoPro 拍了差不多 200 多个 G 的素材。
+          回家以后没有安全弹出，TF 卡直接就读不出来了。
+          我把网上能找到的免费软件、付费软件挨个试了一遍——
+          几款收费很贵的"专业"恢复软件，最多只能恢复一部分，
+          要么视频放到一半突然花屏乱码，要么干脆没有声音。
+          这些素材对我来说是不可逆的回忆，当时是真的有点绝望。
+        </aside>
+      </section>
+
+      <section data-anim="story1-fix">
+        <canvas class="anim-canvas" data-anim="story1-fix"></canvas>
+        <div class="anim-content">
+          <h2>Story 1 — Claude Code fixed it, byte by byte</h2>
+          <ul>
+            <li>Slotted the card into my PC, pointed Claude Code at the
+                raw block device</li>
+            <li>It started by <strong>hex-dumping the disk</strong> to understand
+                the actual on-disk state</li>
+            <li>Then chained together Linux CLI forensic tools I had never
+                even heard of</li>
+            <li>Result: <strong>every clip recovered, intact — video + audio</strong></li>
+          </ul>
+          <p class="citation">Personal experience, May 2026</p>
+        </div>
+        <aside class="notes">
+          穷尽一切办法之后，我做了一件当时觉得有点疯狂的事——
+          把 TF 卡插进电脑，直接把整块原始磁盘交给 Claude Code。
+          它做的第一件事，不是急着给方案，而是先把磁盘数据按 16 进制 dump 出来看，
+          搞清楚这块盘到底坏在哪儿，再决定下一步用什么工具。
+          接下来它调了一连串我听都没听过的 Linux 命令行取证工具，
+          一通操作之后——所有素材，分毫不差，全部修好，画面和声音都完整。
+          这一刻我才真正意识到，AI 已经不是"会聊天的搜索框"了。
+        </aside>
+      </section>
+
+      <section>
+        <h2>Story 2 — My dual-host desk setup</h2>
+        <ul>
+          <li>Company forced VPN into <em>full tunnel</em> mode → work PC
+              &amp; home PC could no longer share one machine</li>
+          <li>Two hosts, two monitors, one USB switch + one USB hub</li>
+          <li>Keyboard / mouse / speaker / mic all hang off the hub</li>
+          <li>Switching boxes = flip monitor input + tap one USB switch button</li>
+        </ul>
+        <p><em>[ photo: speaker + USB hub — save as <code>images/usb-hub-setup.jpg</code> ]</em></p>
+        <aside class="notes">
+          第二个故事的背景稍微长一点，但很重要，不然后面的问题听起来会很奇怪。
+          公司临时调整了 VPN 网络策略，要求大陆这边的员工强制使用 full tunnel 模式，
+          这意味着我之前把办公电脑和家用电脑放在一起混用的方案彻底行不通了。
+          于是我搭了一套：两台主机、两台显示器，
+          键盘、鼠标、音箱、耳机、麦克风全部接到一个 USB hub 上，
+          hub 再接到一个 USB switch。
+          每次想切换设备，只要切一下显示器的输入源，再按一下 USB switch，
+          就能在办公和家用之间无缝切换，看起来非常完美。
+          （这里展示音箱和 USB hub 的照片。）
+        </aside>
+      </section>
+
+      <section>
+        <h2>Story 2 — A gremlin, diagnosed in 60 seconds</h2>
+        <ul>
+          <li>Symptom: <strong>speaker &amp; mic randomly went silent</strong>;
+              every other USB device on the same hub: rock solid</li>
+          <li>I had been blaming the hub / the switch for weeks</li>
+          <li>Opened opencode: "is this a hardware fault?"</li>
+          <li>It wrote PowerShell, enumerated every USB device, checked health</li>
+          <li>~60&nbsp;s later: "hardware is healthy — smells like
+              <strong>insufficient USB power</strong>. Verify by plugging audio
+              straight into the motherboard."</li>
+          <li>Realization: the hub had a <strong>DC power jack</strong> I'd
+              never used. Plugged it in → fixed, instantly.</li>
+        </ul>
+        <p class="citation">Personal experience, July 2026</p>
+        <aside class="notes">
+          然后诡异的问题出现了：音箱和麦克风会时不时突然没声音、没法说话，
+          但同一根 hub 上的键盘鼠标等其他设备，运行得无比顺畅。
+          我连续几周都以为是 USB hub 坏了，或者 USB switch 有问题，
+          甚至一度想直接换设备。
+          直到有一天我实在忍无可忍，打开 opencode，原话大意是：
+          "请帮我诊断一下，我的麦克风和音箱时不时没法正常工作，
+          看看是不是硬件的问题。"
+          opencode 没有直接甩答案，而是写了一堆 PowerShell 脚本，
+          把 Windows 上接入的硬件一个一个枚举出来、检查运行状态。
+          大概一分钟后它告诉我：所有设备运行状态都正常，这不是硬件故障，
+          它推测极有可能是 USB 供电不足——
+          并建议我直接把音频设备插到主板上验证一下。
+          听到这句话我瞬间恍然大悟：
+          我的 USB hub 上其实有一个 DC 供电口，我从来没注意过、也从没用过。
+          翻出电源、插上 DC——问题立刻、彻底地解决了。
+        </aside>
+      </section>
+
+      <section>
+        <h2>What the two stories share</h2>
+        <ul>
+          <li>Neither was solved by an "answer". Both were solved by an agent
+              that <strong>acted</strong> — ran tools, inspected raw state,
+              tested a hypothesis.</li>
+          <li>GoPro: binary-level forensics beyond any consumer recovery app</li>
+          <li>USB hub: systematic diagnosis like a real engineer — not a guess</li>
+        </ul>
+        <p><strong>My take:</strong> in 2026, the real shift isn't "smarter chat"
+           — it's that AI finally has hands.</p>
+        <aside class="notes">
+          这两个故事表面上一个偏软件、一个偏硬件，但本质是一回事：
+          它们都不是靠"AI 给我一个答案"解决的，
+          而是靠 AI 真正"动手"——调用工具、读取底层状态、验证假设——解决的。
+          第一个例子里，AI 的二进制取证能力已经超过市面上任何消费级的恢复软件；
+          第二个例子里，AI 的诊断思路跟一个真正的工程师一模一样，
+          而且只花了一分钟。
+          我个人的判断——注意这是观点不是事实——
+          2026 年 AI 最本质的变化，不是"聊天变得更聪明"，
+          而是 AI 第一次真正长出了"手"。
+          这也是我整场分享想跟大家讨论的核心。
         </aside>
       </section>
 
@@ -79,12 +209,31 @@
   <script src="vendor/reveal/reveal.js"></script>
   <script src="vendor/reveal/plugin/notes.js"></script>
   <script src="vendor/reveal/plugin/highlight.js"></script>
+  <script src="js/story-anim.js"></script>
   <script>
+    Reveal.on("slidechanged", (ev) => {
+      const tag = ev.currentSlide && ev.currentSlide.dataset.anim;
+      const anims = window.__storyAnims || {};
+      for (const k in anims) {
+        if (k === tag) anims[k].start();
+        else anims[k].stop();
+      }
+    });
     Reveal.initialize({
       hash: true,
       slideNumber: 'c/t',
       transition: 'slide',
       plugins: [ RevealNotes, RevealHighlight ]
+    }).then(() => {
+      const slide = Reveal.getCurrentSlide();
+      const tag = slide && slide.dataset.anim;
+      if (tag && window.__storyAnims && window.__storyAnims[tag]) {
+        window.__storyAnims[tag].start();
+      }
+    });
+    window.addEventListener("resize", () => {
+      const anims = window.__storyAnims || {};
+      for (const k in anims) anims[k].refresh && anims[k].refresh();
     });
   </script>
 </body>
