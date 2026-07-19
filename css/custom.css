@@ -1,9 +1,22 @@
 /* Talk-wide overrides for AI in 2026 slides. Keep minimal. */
 
+/* Warm yellow (暖黄) palette, overriding the beige theme's CSS variables */
+:root {
+  --r-background: radial-gradient(#fffdf4, #f8ead0);
+  --r-background-color: #f8ead0;
+  --r-main-color: #46350f;
+  --r-heading-color: #8a5a00;
+  --r-link-color: #b45f06;
+  --r-link-color-hover: #d98a00;
+  --r-link-color-dark: #96500a;
+  --r-selection-background-color: #f0c75e;
+  --r-selection-color: #46350f;
+}
+
 /* Small source/credit line at the bottom of a slide */
 .reveal .citation {
   font-size: 0.5em;
-  color: #999;
+  color: #9c8a5f;
   margin-top: 1.2em;
 }
 
