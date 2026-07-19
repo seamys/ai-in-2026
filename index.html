@@ -86,21 +86,18 @@
         </aside>
       </section>
 
-      <section data-anim="story1-fix">
-        <canvas class="anim-canvas" data-anim="story1-fix"></canvas>
-        <div class="anim-content">
-          <h2>Story 1 — Claude Code fixed it, byte by byte</h2>
-          <ul>
-            <li>Slotted the card into my PC, pointed Claude Code at the
-                raw block device</li>
-            <li>It started by <strong>hex-dumping the disk</strong> to understand
-                the actual on-disk state</li>
-            <li>Then chained together Linux CLI forensic tools I had never
-                even heard of</li>
-            <li>Result: <strong>every clip recovered, intact — video + audio</strong></li>
-          </ul>
-          <p class="citation">Personal experience, May 2026</p>
-        </div>
+      <section>
+        <h2>Story 1 — Claude Code fixed it, byte by byte</h2>
+        <ul>
+          <li>Slotted the card into my PC, pointed Claude Code at the
+              raw block device</li>
+          <li>It started by <strong>hex-dumping the disk</strong> to understand
+              the actual on-disk state</li>
+          <li>Then chained together Linux CLI forensic tools I had never
+              even heard of</li>
+          <li>Result: <strong>every clip recovered, intact — video + audio</strong></li>
+        </ul>
+        <p class="citation">Personal experience, May 2026</p>
         <aside class="notes">
           穷尽一切办法之后，我做了一件当时觉得有点疯狂的事——
           把 TF 卡插进电脑，直接把整块原始磁盘交给 Claude Code。
@@ -209,31 +206,12 @@
   <script src="vendor/reveal/reveal.js"></script>
   <script src="vendor/reveal/plugin/notes.js"></script>
   <script src="vendor/reveal/plugin/highlight.js"></script>
-  <script src="js/story-anim.js"></script>
   <script>
-    Reveal.on("slidechanged", (ev) => {
-      const tag = ev.currentSlide && ev.currentSlide.dataset.anim;
-      const anims = window.__storyAnims || {};
-      for (const k in anims) {
-        if (k === tag) anims[k].start();
-        else anims[k].stop();
-      }
-    });
     Reveal.initialize({
       hash: true,
       slideNumber: 'c/t',
       transition: 'slide',
       plugins: [ RevealNotes, RevealHighlight ]
-    }).then(() => {
-      const slide = Reveal.getCurrentSlide();
-      const tag = slide && slide.dataset.anim;
-      if (tag && window.__storyAnims && window.__storyAnims[tag]) {
-        window.__storyAnims[tag].start();
-      }
-    });
-    window.addEventListener("resize", () => {
-      const anims = window.__storyAnims || {};
-      for (const k in anims) anims[k].refresh && anims[k].refresh();
     });
   </script>
 </body>
