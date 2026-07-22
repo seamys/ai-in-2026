@@ -21,32 +21,59 @@
            - Speaker notes go in <aside class="notes">…</aside>;
              press "S" during the talk to open the speaker view.
            - Put images in images/ and reference them as images/xxx.png.
-           - Put every external source into references.md, and cite it
-             on the slide with <p class="citation">Source: …</p>.
+           - Put every external source into references.md, and cite claims
+             on the slide with footnote markers <sup class="fn">N</sup> plus
+             a <div class="footnotes">…</div> block at the bottom.
+           - Reusable building blocks live in css/custom.css:
+             .kicker .cards .card .stats .stat .timeline .t-node
+             .bars .term .setup .pipeline .versus .loop .divider
            ============================================================ -->
 
       <!-- Title slide -->
       <section>
-        <h1>AI in 2026</h1>
-        <h3>A Personal Perspective on Where We Are and What's Next</h3>
-        <p class="citation">https://ai-in-2026.xiaomum.com</p>
+        <div class="blob blob-a"></div>
+        <div class="blob blob-b"></div>
+        <p class="kicker">A Personal Perspective · Mid-2026</p>
+        <h1 class="title-hero">AI in 2026</h1>
+        <div class="title-rule"></div>
+        <h3>Where we are, how we got here, and what's next</h3>
+        <p class="citation anim-rise">https://ai-in-2026.xiaomum.com</p>
         <aside class="notes">
           开场白：自我介绍，说明这是一场基于个人视角的分享，
           所有引用资料都列在 references.md，幻灯片本身托管在 GitHub Pages 上。
         </aside>
       </section>
 
-      <!-- Example: agenda slide. Replace with your own outline. -->
+      <!-- Agenda -->
       <section>
-        <h2>Agenda</h2>
-        <ul>
-          <li>Where AI stands in mid-2026</li>
-          <li>What changed my own work</li>
-          <li>Trends worth watching</li>
-          <li>Open questions</li>
-        </ul>
+        <p class="kicker">Agenda</p>
+        <h2>Four parts, one thread</h2>
+        <div class="cards">
+          <div class="card fragment fade-up">
+            <span class="when">Part 1</span>
+            <span class="card-title">From my own desk</span>
+            Two real stories — no theory, no benchmarks.
+          </div>
+          <div class="card fragment fade-up">
+            <span class="when">Part 2</span>
+            <span class="card-title">How we got here</span>
+            A twelve-month industry timeline.
+          </div>
+          <div class="card fragment fade-up">
+            <span class="when">Part 3</span>
+            <span class="card-title">Under the hood</span>
+            RL, distillation, and the agent loop.
+          </div>
+          <div class="card fragment fade-up">
+            <span class="when">Part 4</span>
+            <span class="card-title">What's next</span>
+            My takes, and open questions.
+          </div>
+        </div>
         <aside class="notes">
-          说明演讲结构：现状 → 个人体验 → 趋势 → 开放问题。全程约 20-30 分钟。
+          说明演讲结构：先讲两个亲身故事建立直觉（AI 长出了"手"），
+          再回看过去一年的行业时间线，然后拆开看这些能力背后的技术，
+          最后聊聊对未来的判断和开放问题。全程约 25 分钟。
         </aside>
       </section>
 
@@ -55,8 +82,9 @@
            Personal experience, not external claims — see references.md.
            ============================================================ -->
 
-      <section>
-        <h2>Part 1 — From my own desk</h2>
+      <section class="divider" data-background-gradient="linear-gradient(135deg,#241a08,#4a3607)">
+        <span class="part-no">01</span>
+        <h2>From my own desk</h2>
         <h3>Two real stories from the first half of 2026</h3>
         <p>No theory, no benchmarks — just things that actually happened to me.</p>
         <aside class="notes">
@@ -67,13 +95,14 @@
       </section>
 
       <section>
-        <h2>Story 1 — 200&nbsp;GB of GoPro footage, gone</h2>
+        <p class="kicker">Story 1 · The problem</p>
+        <h2>200&nbsp;GB of GoPro footage, gone</h2>
         <ul>
-          <li>May Day trip, ~200&nbsp;GB of GoPro video on a microSD card</li>
-          <li>Pulled the card without ejecting safely → card became unreadable</li>
-          <li>Every free recovery tool I could find: failed</li>
-          <li>Paid "pro" recovery software (the expensive ones): only partial
-              recovery — video glitched mid-stream, or audio gone entirely</li>
+          <li class="fragment fade-up">May Day trip, ~200&nbsp;GB of GoPro video on a microSD card</li>
+          <li class="fragment fade-up">Pulled the card without ejecting safely → card became unreadable</li>
+          <li class="fragment fade-up">Every free recovery tool I could find: <strong>failed</strong></li>
+          <li class="fragment fade-up">Paid "pro" recovery software: only partial recovery —
+              glitched video, or audio gone entirely</li>
         </ul>
         <p class="citation">Personal experience, May 2026</p>
         <aside class="notes">
@@ -87,16 +116,21 @@
       </section>
 
       <section>
-        <h2>Story 1 — Claude Code fixed it, byte by byte</h2>
-        <ul>
-          <li>Slotted the card into my PC, pointed Claude Code at the
-              raw block device</li>
-          <li>It started by <strong>hex-dumping the disk</strong> to understand
-              the actual on-disk state</li>
-          <li>Then chained together Linux CLI forensic tools I had never
-              even heard of</li>
-          <li>Result: <strong>every clip recovered, intact — video + audio</strong></li>
-        </ul>
+        <p class="kicker">Story 1 · The fix</p>
+        <h2>Claude Code fixed it, byte by byte</h2>
+        <div class="term anim-rise">
+          <div class="term-head"><i></i><i></i><i></i></div>
+          <div class="term-body">
+            <div class="fragment fade-up"><span class="p">$</span> hexdump -C /dev/sdb | less
+              <span class="dim"># first: look at the raw disk before touching it</span></div>
+            <div class="fragment fade-up"><span class="p">$</span> photorec · exiftool · ffmpeg
+              <span class="dim"># forensic CLI tools, chained</span></div>
+            <div class="fragment fade-up"><span class="p">$</span> verify: every clip, video + audio streams</div>
+            <div class="fragment fade-up"><span class="ok">✔ 214 clips recovered — 100% intact</span></div>
+          </div>
+        </div>
+        <p class="anim-rise-2" style="font-size:0.6em">Pointed Claude Code at the raw block device.
+           It diagnosed first, then acted.</p>
         <p class="citation">Personal experience, May 2026</p>
         <aside class="notes">
           穷尽一切办法之后，我做了一件当时觉得有点疯狂的事——
@@ -110,15 +144,26 @@
       </section>
 
       <section>
-        <h2>Story 2 — My dual-host desk setup</h2>
-        <ul>
-          <li>Company forced VPN into <em>full tunnel</em> mode → work PC
-              &amp; home PC could no longer share one machine</li>
-          <li>Two hosts, two monitors, one USB switch + one USB hub</li>
-          <li>Keyboard / mouse / speaker / mic all hang off the hub</li>
-          <li>Switching boxes = flip monitor input + tap one USB switch button</li>
-        </ul>
-        <p><em>[ photo: speaker + USB hub — save as <code>images/usb-hub-setup.jpg</code> ]</em></p>
+        <p class="kicker">Story 2 · The setup</p>
+        <h2>My dual-host desk setup</h2>
+        <div class="setup anim-rise">
+          <div class="row">
+            <span class="box">Work PC</span>
+            <span class="box">Home PC</span>
+          </div>
+          <div class="down">▼</div>
+          <div class="row"><span class="box">USB Switch</span></div>
+          <div class="down">▼</div>
+          <div class="row"><span class="box">USB Hub <em>(DC jack, never used)</em></span></div>
+          <div class="down">▼</div>
+          <div class="row">
+            <span class="box">Keyboard · Mouse</span>
+            <span class="box warn">Speaker · Mic ⚠</span>
+          </div>
+        </div>
+        <p class="anim-rise-2" style="font-size:0.58em">Full-tunnel VPN forced two hosts;
+           one button to switch everything — almost perfect.</p>
+        <div class="dropzone">[ photo: speaker + USB hub — save as images/usb-hub-setup.jpg ]</div>
         <aside class="notes">
           第二个故事的背景稍微长一点，但很重要，不然后面的问题听起来会很奇怪。
           公司临时调整了 VPN 网络策略，要求大陆这边的员工强制使用 full tunnel 模式，
@@ -133,19 +178,22 @@
       </section>
 
       <section>
-        <h2>Story 2 — A gremlin, diagnosed in 60 seconds</h2>
-        <ul>
-          <li>Symptom: <strong>speaker &amp; mic randomly went silent</strong>;
-              every other USB device on the same hub: rock solid</li>
-          <li>I had been blaming the hub / the switch for weeks</li>
-          <li>Opened opencode: "is this a hardware fault?"</li>
-          <li>It wrote PowerShell, enumerated every USB device, checked health</li>
-          <li>~60&nbsp;s later: "hardware is healthy — smells like
-              <strong>insufficient USB power</strong>. Verify by plugging audio
-              straight into the motherboard."</li>
-          <li>Realization: the hub had a <strong>DC power jack</strong> I'd
-              never used. Plugged it in → fixed, instantly.</li>
-        </ul>
+        <p class="kicker">Story 2 · The diagnosis</p>
+        <h2>A gremlin, diagnosed in 60 seconds</h2>
+        <div class="term anim-rise">
+          <div class="term-head"><i></i><i></i><i></i></div>
+          <div class="term-body">
+            <div class="fragment fade-up"><span class="dim">symptom: speaker &amp; mic randomly silent;
+              kbd/mouse on the same hub: rock solid</span></div>
+            <div class="fragment fade-up"><span class="p">PS&gt;</span> Get-PnpDevice | ? FriendlyName -match 'USB|Audio'
+              <span class="dim"># opencode writes PowerShell</span></div>
+            <div class="fragment fade-up">→ every device: <span class="ok">Status OK</span> — hardware is healthy</div>
+            <div class="fragment fade-up"><span class="ok">✔ hypothesis: insufficient USB power.
+              Verify: plug audio into the motherboard.</span></div>
+          </div>
+        </div>
+        <p class="anim-rise-2" style="font-size:0.6em">The hub had a <strong>DC power jack</strong>
+           I'd never used. Plugged it in → fixed, instantly.</p>
         <p class="citation">Personal experience, July 2026</p>
         <aside class="notes">
           然后诡异的问题出现了：音箱和麦克风会时不时突然没声音、没法说话，
@@ -167,16 +215,26 @@
       </section>
 
       <section>
+        <p class="kicker">The pattern</p>
         <h2>What the two stories share</h2>
-        <ul>
-          <li>Neither was solved by an "answer". Both were solved by an agent
-              that <strong>acted</strong> — ran tools, inspected raw state,
-              tested a hypothesis.</li>
-          <li>GoPro: binary-level forensics beyond any consumer recovery app</li>
-          <li>USB hub: systematic diagnosis like a real engineer — not a guess</li>
-        </ul>
-        <p><strong>My take:</strong> in 2026, the real shift isn't "smarter chat"
-           — it's that AI finally has hands.</p>
+        <div class="cards">
+          <div class="card fragment fade-up">
+            <span class="card-title">Not answers — actions</span>
+            Both were solved by an agent that <strong>acted</strong>: ran tools,
+            inspected raw state, tested a hypothesis.
+          </div>
+          <div class="card fragment fade-up">
+            <span class="card-title">Beyond consumer software</span>
+            GoPro: binary-level forensics no recovery app could match.
+          </div>
+          <div class="card fragment fade-up">
+            <span class="card-title">Like a real engineer</span>
+            USB hub: systematic diagnosis in ~60 seconds — not a guess.
+          </div>
+        </div>
+        <p class="anim-rise-2" style="margin-top:0.9em"><strong>My take:</strong> in 2026,
+           the real shift isn't "smarter chat" — it's that AI finally has
+           <strong>hands</strong>.</p>
         <aside class="notes">
           这两个故事表面上一个偏软件、一个偏硬件，但本质是一回事：
           它们都不是靠"AI 给我一个答案"解决的，
@@ -191,10 +249,646 @@
         </aside>
       </section>
 
+      <!-- ============================================================
+           Part 2 — How we got here: industry timeline, H2 2025 → mid-2026.
+           Every fact here must have an entry in references.md.
+           ============================================================ -->
+
+      <section class="divider" data-background-gradient="linear-gradient(135deg,#241a08,#4a3607)">
+        <span class="part-no">02</span>
+        <h2>How we got here</h2>
+        <h3>A twelve-month timeline: H2 2025 → mid-2026</h3>
+        <p>Facts, not takes — every source is in references.md.</p>
+        <aside class="notes">
+          第二部分，花几分钟快速回放过去这一年发生了什么。
+          强调这部分全部是公开事实，每条都能在 references.md 里找到出处；
+          我的个人判断会明确标注 "My take"。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Timeline · Models</p>
+        <h2>The frontier model war, month by month</h2>
+        <div class="timeline">
+          <div class="t-node">
+            <span class="t-when">Aug 2025</span>
+            <span class="t-what">OpenAI ships <strong>GPT-5</strong> —
+              chat and reasoning, unified<sup class="fn">1</sup></span>
+          </div>
+          <div class="t-node">
+            <span class="t-when">Nov 2025</span>
+            <span class="t-what">Three frontier launches in two weeks:
+              GPT-5.1 · <strong>Gemini 3 Pro</strong> · Claude Opus 4.5<sup class="fn">2</sup></span>
+          </div>
+          <div class="t-node">
+            <span class="t-when">Dec 2025</span>
+            <span class="t-what">OpenAI's reported "code red" over Gemini 3 →
+              GPT-5.2<sup class="fn">3</sup></span>
+          </div>
+          <div class="t-node">
+            <span class="t-when">2026</span>
+            <span class="t-what">Monthly cadence: Opus 4.6→4.8 →
+              <strong>Fable 5</strong>, GPT-5.3→5.6, DeepSeek V4<sup class="fn">4</sup></span>
+          </div>
+        </div>
+        <div class="footnotes">
+          <span><sup>1</sup><a href="https://openai.com/index/introducing-gpt-5/">OpenAI, "Introducing GPT-5"</a>, 2025-08-07</span>
+          <span><sup>2</sup><a href="https://openai.com/index/gpt-5-1/">OpenAI GPT-5.1</a> (11-12) · <a href="https://blog.google/products/gemini/gemini-3/">Google Gemini 3 Pro</a> (11-18) · <a href="https://www.anthropic.com/news/claude-opus-4-5">Anthropic Opus 4.5</a> (11-24), 2025</span>
+          <span><sup>3</sup><a href="https://blog.galaxy.ai/compare/gpt-5-2-vs-gpt-5-3-codex">Magica/Galaxy AI model tracker</a>; <a href="https://t.cj.sina.cn/articles/view/6890756658/19ab89a3204001gjgg">Sina Tech on the reported "code red"</a>, Dec 2025</span>
+          <span><sup>4</sup><a href="https://www.promptzone.com/ai-model-releases">PromptZone AI model release tracker</a>, verified 2026-07-16</span>
+          <span class="fn-more">Full URLs: references.md § Frontier releases</span>
+        </div>
+        <aside class="notes">
+          首先是模型军备竞赛。2025 年 8 月 GPT-5 发布，把聊天模型和推理模型合为一体。
+          最夸张的是 11 月——两周之内，GPT-5.1、Gemini 3 Pro、Claude Opus 4.5
+          三家头部模型接连发布，Gemini 3 让 Google 重新回到了第一梯队。
+          12 月 OpenAI 被曝出内部启动 "code red" 应对 Gemini 3，随后推出 GPT-5.2。
+          进入 2026 年，发布节奏变成了"月更"：Anthropic 的 Opus 从 4.6 一路更到 4.8，
+          间隔最短只有 41 天。想告诉大家的是：这个领域的迭代速度还在加快，没有放缓。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Timeline · Open weights</p>
+        <h2>Open weights caught up</h2>
+        <div class="stats">
+          <div class="stat fragment fade-up">
+            <span class="num">−50%</span>
+            <span class="lbl">DeepSeek V3.2-Exp API price (Sep 2025), via sparse
+              attention<sup class="fn">1</sup></span>
+          </div>
+          <div class="stat fragment fade-up">
+            <span class="num">3×🥇</span>
+            <span class="lbl">IMO · IOI · ICPC gold level, DeepSeek
+              V3.2-Speciale (Dec 2025)<sup class="fn">2</sup></span>
+          </div>
+          <div class="stat fragment fade-up">
+            <span class="num">6×</span>
+            <span class="lbl">cheaper than GPT-5.5 — GLM-5.2 (Jun 2026),
+              MIT-licensed 753B; vendor coding claims<sup class="fn">3</sup></span>
+          </div>
+          <div class="stat fragment fade-up">
+            <span class="num">2.8T</span>
+            <span class="lbl">parameters — Kimi K3 (Jul 2026), largest
+              open-weights model ever; weights drop Jul 27<sup class="fn">4</sup></span>
+          </div>
+        </div>
+        <p class="anim-rise-2"><strong>My take:</strong> open models now trail the frontier by
+           <strong>months, not years</strong> — and they set the price floor.</p>
+        <div class="footnotes">
+          <span><sup>1</sup><a href="https://www.promptzone.com/ai-model-releases">DeepSeek V3.2-Exp launch, via PromptZone tracker</a>, 2025-09-29</span>
+          <span><sup>2</sup><a href="https://api-docs.deepseek.com/zh-cn/news/news251201/">DeepSeek official announcement (V3.2 &amp; Speciale)</a>, 2025-12-01 — vendor-reported</span>
+          <span><sup>3</sup><a href="https://opsmatters.com/posts/glm-52-review-2026-zhipu-ais-open-weight-coding-model-honestly-assessed">OpsMatters, "GLM-5.2 Review"</a>, 2026-07-08 — headline benchmarks are Zhipu's own</span>
+          <span><sup>4</sup><a href="http://www.xinhuanet.com/tech/20260717/da893d3a5e1b429ea79d928e02847744/c.html">Xinhua, "中国企业发布全球最大规模的开源模型 Kimi K3"</a>, 2026-07-17</span>
+          <span class="fn-more">Full URLs: references.md § Open weights</span>
+        </div>
+        <aside class="notes">
+          第二条线是开源模型的追赶——2026 年这已经是一整个中国阵营的浪潮：
+          阿里 Qwen3.5（2 月，原生多模态）到 Qwen3.7（5 月）；
+          智谱 GLM-5（2 月）一路更到 GLM-5.2（6 月，MIT 协议、753B 参数，
+          官方称长程编程超过 GPT-5.5 而成本只有六分之一）；
+          DeepSeek V4（4 月 24 日，Pro+Flash，1M 上下文、开放权重）；
+          再到上周 WAIC 的 Kimi K3——2.8 万亿参数、KDA 混合线性注意力新架构，
+          7 月 27 日放出完整权重，是全球最大的开源模型。
+          而且这页 PPT 可能明天就过时：阿里 Qwen3.8-Max 预览版 7 月 19 日已经上线
+          （2.4T 参数，正式版和开源在即），智谱 GLM-5.5 也有传闻说 8 月发布。
+          我的判断——这是观点：开源模型和闭源前沿的差距，已经从"年"缩短到"月"，
+          而且开源在持续压低整个行业的价格底线。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Timeline · Agents</p>
+        <h2>Agents became the product</h2>
+        <div class="cards">
+          <div class="card fragment fade-up">
+            <span class="when">2025</span>
+            <span class="card-title">Chatbots → systems that act</span>
+            Browse, code, operate computers. Claude Code / Skills go
+            mainstream.<sup class="fn">1</sup>
+          </div>
+          <div class="card fragment fade-up">
+            <span class="when">Dec 2025</span>
+            <span class="card-title">Meta acquires Manus</span>
+            Multi-billion-dollar bet on general-purpose agents.<sup class="fn">2</sup>
+          </div>
+          <div class="card fragment fade-up">
+            <span class="when">Jan 2026</span>
+            <span class="card-title">OpenClaw surge</span>
+            Open-source agent framework hits GitHub's global top 10 in ~10
+            days.<sup class="fn">3</sup>
+          </div>
+        </div>
+        <div class="footnotes">
+          <span><sup>1</sup><a href="https://www.anthropic.com/news/skills">Anthropic, Claude Skills launch</a>, Oct 2025</span>
+          <span><sup>2</sup><a href="https://news.qq.com/rain/a/20251230A01HRY00">Tencent News</a>, 2025-12-30 — price not officially disclosed</span>
+          <span><sup>3</sup><a href="https://aiskillnav.com/news">AI Skill Navigation timeline</a> — single third-party source, approximate</span>
+          <span class="fn-more">Full URLs: references.md § Agents</span>
+        </div>
+        <aside class="notes">
+          第三条线，也是和我开场两个故事直接相关的：Agent 从技术概念变成了产品主战场。
+          标志性事件是 2025 年 12 月底 Meta 以数十亿美元收购通用 Agent 公司 Manus，
+          这是 Meta 历史上第三大收购；开发者这边，Claude Code、opencode 这类
+          编码 Agent 已经成了日常工具；2026 年 1 月，开源 Agent 框架 OpenClaw
+          十天冲进 GitHub 全球前十。
+          一句话：AI 的卖点从"会聊"变成了"会干活"。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Timeline · Money &amp; jobs</p>
+        <h2>Money, compute — and jobs</h2>
+        <div class="bars">
+          <div class="bar-row">
+            <div class="bar-lbl"><span>OpenAI · round closed Mar 2026<sup class="fn">1</sup></span>
+              <span class="val">$852B</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-lbl"><span>Anthropic · May 2026, IPO filed in June<sup class="fn">2</sup></span>
+              <span class="val">~$965B</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+          </div>
+        </div>
+        <ul style="margin-top:0.8em">
+          <li class="fragment fade-up">Both labs started <strong>designing their own AI
+              chips</strong><sup class="fn">3</sup></li>
+          <li class="fragment fade-up">AI cited as the <strong>#1 reason for US tech layoffs</strong>,
+              spring 2026<sup class="fn">4</sup></li>
+          <li class="fragment fade-up">Chinese labs joined the market: <strong>Zhipu (Z.ai) listed in
+              Hong Kong</strong> (Jan 2026); Moonshot reportedly prepping a HK IPO<sup class="fn">5</sup></li>
+        </ul>
+        <div class="footnotes">
+          <span><sup>1</sup><a href="https://kingy.ai/ai/openai-vs-anthropic-mindshare-through-may-15-2026/">kingy.ai funding tracker</a> (company announcements aggregated), 2026-03-31</span>
+          <span><sup>2</sup><a href="https://www.launchconsulting.com/posts/ai-news-from-may-2026">Launch Consulting</a>; <a href="https://osasai.com/blog/ai-news-first-week-june-2026">OSAS AI on the IPO filing</a>, May–Jun 2026 — secondary reporting</span>
+          <span><sup>3</sup><a href="https://cryptobriefing.com/openai-anthropic-to-develop-custom-ai-chips-eyeing-12t-valuation-by-2026/">Crypto Briefing</a>, 2026-07-14</span>
+          <span><sup>4</sup><a href="https://aitoolsrecap.com/Blog/ai-news-may-11-2026">AIToolsRecap, citing Challenger, Gray &amp; Christmas</a>, 2026-05-11</span>
+          <span><sup>5</sup><a href="https://finance.sina.com.cn/roll/2026-01-08/doc-inhfqikx1458505.shtml">Sina Finance</a>, 2026-01-08; Moonshot IPO is reported, not filed</span>
+          <span class="fn-more">Full URLs: references.md § Industry &amp; capital</span>
+        </div>
+        <aside class="notes">
+          最后一条线是资本和基础设施。OpenAI 三月关闭了 1220 亿美元融资，
+          估值 8520 亿美元；Anthropic 五月估值冲到约 9650 亿美元，并在六月递交了
+          IPO 申请，可能成为第一家上市的头部大模型公司。两家都开始自研芯片。
+          另一面是就业：2026 年春季，AI 连续成为美国科技行业裁员被引用最多的原因。
+          中国厂商也走上资本市场：智谱（Z.ai）1 月已经在港交所上市，
+          是第一家上市的中国大模型公司，月之暗面据报道也在筹备港股 IPO。
+          资本狂热和就业冲击同时存在——这就是 2026 年的现实。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Timeline · Regulation</p>
+        <h2>June 2026 — the first model recall in history</h2>
+        <div class="timeline">
+          <div class="t-node">
+            <span class="t-when">Jun 9</span>
+            <span class="t-what">Anthropic launches <strong>Claude Fable 5</strong> —
+              first "Mythos-class" model, above Opus<sup class="fn">1</sup></span>
+          </div>
+          <div class="t-node">
+            <span class="t-when">Jun 12</span>
+            <span class="t-what">US export-control order: no foreign access —
+              Fable 5 &amp; Mythos 5 go <strong>404 worldwide</strong><sup class="fn">2</sup></span>
+          </div>
+          <div class="t-node">
+            <span class="t-when">Jul 1</span>
+            <span class="t-what">Commerce Dept lifts the order;
+              access restored after ~3 weeks<sup class="fn">3</sup></span>
+          </div>
+          <div class="t-node">
+            <span class="t-when">Jun 26 → Jul 9</span>
+            <span class="t-what">OpenAI's <strong>GPT-5.6</strong> clears a government
+              security review first — the first <em>gated</em> frontier launch<sup class="fn">4</sup></span>
+          </div>
+        </div>
+        <p class="anim-rise-2"><strong>My take:</strong> frontier capability is now a
+           <strong>national-security matter</strong> — expect more governance, not less.</p>
+        <div class="footnotes">
+          <span><sup>1</sup><a href="https://codersera.com/blog/claude-fable-5-launch-guide-2026/">Codersera launch guide</a>; <a href="https://ccleaks.com/news/claude-fable-5-mythos-5-new-tier">ccleaks</a> — Anthropic press release, 2026-06-09</span>
+          <span><sup>2</sup><a href="https://www.huxiu.com/article/4867489.html">Huxiu, "美国首次以出口管制强制下线 Anthropic 最强 AI 模型 Fable 5"</a>, 2026-06-15</span>
+          <span><sup>3</sup><a href="https://exportcontrol.mofcom.gov.cn/article/gjdt/202607/1304.html">Yicai via MOFCOM export-control portal</a>, 2026-07-03</span>
+          <span><sup>4</sup><a href="https://o-mega.ai/articles/openai-gpt-5-6-full-benchmark-pricing-july-2026">o-mega.ai, citing TechCrunch &amp; Engadget</a>, 2026-07-08</span>
+          <span class="fn-more">Full URLs: references.md § Regulation</span>
+        </div>
+        <aside class="notes">
+          这页是 2026 年最具戏剧性的事件，也是 AI 史上第一次：
+          一个已经公开部署的前沿商业模型，被政府以出口管制手段强制下线。
+          6 月 9 日 Anthropic 发布 Fable 5，定位是比 Opus 更高一级的 "Mythos-class"；
+          72 小时后，美国商务部以国家安全为由发出出口管制令——
+          不仅禁止境外访问，连美国境内的外籍人士、甚至 Anthropic 自己的外籍员工都不许用。
+          因为技术上无法精准甄别国籍，Anthropic 只能一刀切全球断供，接近三周。
+          据报道导火索是亚马逊研究团队的测试发现了危险能力。
+          7 月 1 日管制解除、恢复访问。
+          而且这不是孤例：OpenAI 的 GPT-5.6 在 6 月 26 日只是小范围预览，
+          因为美国政府要求先做网络安全审查，直到 7 月 9 日才全面开放——
+          OpenAI 自己公开反对这种做法。一次强制召回、一次审查放行，
+          同一个六月，监管正式登场。
+          对我的主线的意义：模型已经强到需要国家安全级别的管制——
+          这本身就是"AI 长出了手"最硬的证据。同时也提醒：监管会成为常态变量。
+        </aside>
+      </section>
+
+      <!-- ============================================================
+           Part 3 — Under the hood: how these capabilities are made.
+           Concept slides; sources are the original papers (references.md).
+           ============================================================ -->
+
+      <section class="divider" data-background-gradient="linear-gradient(135deg,#241a08,#4a3607)">
+        <span class="part-no">03</span>
+        <h2>Under the hood</h2>
+        <h3>How are these capabilities actually made?</h3>
+        <p>Three ideas: post-training, RL, and the agent loop.</p>
+        <aside class="notes">
+          看完行业现象，这一部分拆开看技术本质。
+          只讲三个概念：后训练流水线、强化学习、以及 Agent 循环。
+          目标不是讲数学，而是让大家理解"为什么 2026 年的 AI 突然会干活了"。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Concept 1 · Post-training</p>
+        <h2>The post-training pipeline</h2>
+        <div class="pipeline">
+          <div class="stage">
+            <span class="step-no">1</span>
+            <strong>Pre-training</strong>
+            predict the next token<br>→ knowledge, no manners
+          </div>
+          <div class="arrow">→</div>
+          <div class="stage">
+            <span class="step-no">2</span>
+            <strong>SFT</strong>
+            imitate demonstrations<sup class="fn">1</sup><br>→ follows instructions
+          </div>
+          <div class="arrow">→</div>
+          <div class="stage hot">
+            <span class="step-no">3</span>
+            <strong>RL</strong>
+            optimize rewards<sup class="fn">2</sup><br>→ prefers good answers,<br>discovers reasoning
+          </div>
+        </div>
+        <p class="anim-rise"><strong>My take:</strong> the 2025–2026 capability jump came
+           mostly from the RL stage, not from bigger pre-training.</p>
+        <div class="footnotes">
+          <span><sup>1</sup><a href="https://arxiv.org/abs/2203.02155">Ouyang et al., "Training language models to follow instructions with human feedback" (InstructGPT)</a>, arXiv:2203.02155</span>
+          <span><sup>2</sup><a href="https://arxiv.org/abs/2501.12948">DeepSeek-AI, "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via RL"</a>, arXiv:2501.12948</span>
+          <span class="fn-more">Full URLs: references.md § Training methods</span>
+        </div>
+        <aside class="notes">
+          今天的大模型基本是三段式炼成的。
+          预训练：预测下一个词，学会海量知识，但不懂"该怎么说话"；
+          SFT（监督微调）：模仿人类写的示范回答，学会遵循指令；
+          RL（强化学习）：不再给标准答案，只给"好坏"奖励，模型自己去探索，
+          反而探索出了长链推理、自我检查这些示范数据里根本没有的行为。
+          我的判断：2025 到 2026 年这波能力跃升，主要来自 RL 阶段，
+          而不是预训练规模的堆大。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Concept 2 · Reinforcement learning</p>
+        <h2>Three flavors of RL for LLMs</h2>
+        <div class="cards">
+          <div class="card fragment fade-up">
+            <span class="card-title">RLHF<sup class="fn">1</sup></span>
+            A reward model trained on human preferences scores the answers.
+            <em>InstructGPT lineage.</em>
+          </div>
+          <div class="card fragment fade-up">
+            <span class="card-title">RLVR<sup class="fn">2</sup></span>
+            Verifiable rewards — math answers and code tests checked by rules.
+            <em>DeepSeek-R1 lineage.</em>
+          </div>
+          <div class="card fragment fade-up">
+            <span class="card-title">DPO<sup class="fn">3</sup></span>
+            Skips RL entirely; optimizes preference data directly.
+            <em>Cheap, but no online exploration.</em>
+          </div>
+        </div>
+        <p class="anim-rise-2">RLVR is why models learned to <strong>think longer</strong>:
+           trial and error discovered chain-of-thought on its own.</p>
+        <div class="footnotes">
+          <span><sup>1</sup><a href="https://arxiv.org/abs/2203.02155">Ouyang et al. 2022 (InstructGPT)</a>, arXiv:2203.02155</span>
+          <span><sup>2</sup><a href="https://arxiv.org/abs/2501.12948">DeepSeek-AI 2025 (DeepSeek-R1)</a>, arXiv:2501.12948</span>
+          <span><sup>3</sup><a href="https://arxiv.org/abs/2305.18290">Rafailov et al. 2023 (DPO)</a>, arXiv:2305.18290</span>
+          <span class="fn-more">Full URLs: references.md § Training methods</span>
+        </div>
+        <aside class="notes">
+          强化学习在 LLM 里有三种主流玩法。
+          RLHF：先让人类给回答排序、训一个奖励模型，再用它给模型打分——ChatGPT 的路线；
+          RLVR：数学、代码这种有客观对错的任务，直接用规则验证给奖励，
+          不需要奖励模型——DeepSeek-R1 的路线，推理能力主要由此而来；
+          DPO：干脆不做在线 RL，直接拿偏好数据做监督优化，便宜但没有探索能力。
+          关键点是：RLVR 让模型通过试错自己"发现"了思维链——
+          不是人教它怎么想，而是想得更长、会自检的回答更容易拿奖励。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Concept 2.5 · A common confusion</p>
+        <h2>Distillation is <em>not</em> RL</h2>
+        <div class="versus">
+          <div class="vs-panel a">
+            <span class="vs-title">Distillation</span>
+            A small <strong>student</strong> imitates a big <strong>teacher's</strong>
+            outputs. Plain supervised learning.<br>
+            <em>Copying the top student's homework.</em>
+          </div>
+          <div class="vs-mark">≠</div>
+          <div class="vs-panel b">
+            <span class="vs-title">Reinforcement learning</span>
+            The model samples its <strong>own</strong> answers and optimizes
+            for reward.<br>
+            <em>Doing your own problem sets, graded pass/fail.</em>
+          </div>
+        </div>
+        <p class="anim-rise-2">DeepSeek-R1 was trained mainly with RL — then its reasoning
+           was <strong>distilled</strong> into Qwen / Llama small models.<sup class="fn">1</sup><br>
+           <strong>My take:</strong> distillation <em>spreads</em> capability;
+           RL is what <em>creates</em> it.</p>
+        <div class="footnotes">
+          <span><sup>1</sup><a href="https://arxiv.org/abs/2501.12948">DeepSeek-AI 2025 (DeepSeek-R1, incl. distilled variants)</a>, arXiv:2501.12948</span>
+          <span class="fn-more">Full URLs: references.md § Training methods</span>
+        </div>
+        <aside class="notes">
+          这里专门澄清一个常见混淆：模型蒸馏不是强化学习，它是监督学习。
+          打个比方：蒸馏是"抄学霸的作业"，RL 是"自己做题、按对错改"。
+          DeepSeek-R1 本身是主要靠 RL 训出来的，然后它的推理轨迹被蒸馏进
+          Qwen、Llama 的小模型——所以小模型也能"显得会推理"。
+          我的判断：蒸馏负责把能力便宜地扩散出去，但真正创造能力上限的还是 RL。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Concept 3 · Agents</p>
+        <h2>An agent = model + tools + loop</h2>
+        <div class="loop">
+          <span class="node">Observe</span>
+          <span class="arr">→</span>
+          <span class="node core">Think (LLM)</span>
+          <span class="arr">→</span>
+          <span class="node">Call a tool</span>
+          <span class="arr">→</span>
+          <span class="node">Observe result</span>
+        </div>
+        <p class="loop-back"><span class="spin">↺</span> repeat until done —
+           tools: shell · file system · browser · APIs (MCP)<sup class="fn">1</sup><sup class="fn">2</sup></p>
+        <ul style="margin-top:0.7em">
+          <li class="fragment fade-up">Tool use is <strong>trained</strong>
+              (RL on real tool-call traces)</li>
+          <li class="fragment fade-up">…and <strong>scaffolded</strong>
+              (harnesses like Claude Code)</li>
+        </ul>
+        <p class="anim-rise-2"><strong>My take:</strong> "hands" appeared because long-horizon
+           reasoning and reliable tool use crossed the usability threshold
+           <strong>together</strong>.</p>
+        <div class="footnotes">
+          <span><sup>1</sup><a href="https://arxiv.org/abs/2210.03629">Yao et al. 2022 (ReAct: reasoning + acting loop)</a>, arXiv:2210.03629</span>
+          <span><sup>2</sup><a href="https://modelcontextprotocol.io">Anthropic, Model Context Protocol spec</a>, Nov 2024</span>
+          <span class="fn-more">Full URLs: references.md § Agents</span>
+        </div>
+        <aside class="notes">
+          那"手"到底是怎么长出来的？Agent 的架构其实很简单：
+          让模型跑在一个循环里——观察环境、思考、调用工具、再观察结果，如此往复。
+          工具就是 shell、文件系统、浏览器、各种 API，MCP 是统一接工具的协议。
+          光会调工具不够，还要训得可靠：现在头部模型都用了大量真实工具调用的轨迹
+          做 RL；外面再套一层 Claude Code 这样的工程脚手架。
+          我的判断：是长程推理能力和可靠工具使用在 2025–2026 年同时跨过了可用性门槛，
+          两者叠加，Agent 才真正好用。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Case study · The training ground</p>
+        <h2>The environment factory</h2>
+        <div class="pipeline">
+          <div class="stage">
+            <span class="step-no">1</span>
+            <strong>Generate</strong>
+            synthesize a task<br>(a repo + a failing test,<br>a broken server, …)
+          </div>
+          <div class="arrow">→</div>
+          <div class="stage">
+            <span class="step-no">2</span>
+            <strong>Execute</strong>
+            spin up a container;<br>the agent works inside it<br>for many
+            turns<sup class="fn">3</sup>
+          </div>
+          <div class="arrow">→</div>
+          <div class="stage hot">
+            <span class="step-no">3</span>
+            <strong>Verify</strong>
+            run the test suite →<br>programmatic reward →<br>GRPO update
+          </div>
+        </div>
+        <div class="stats" style="margin-top:0.5em">
+          <div class="stat fragment fade-up">
+            <span class="num">$10M+</span>
+            <span class="lbl">reported yearly spend on RL environments — Anthropic;
+              OpenAI signs seven-figure env contracts<sup class="fn">1</sup></span>
+          </div>
+          <div class="stat fragment fade-up">
+            <span class="num">5,000+</span>
+            <span class="lbl">isolated environments launched within 10 seconds —
+              MiniMax; tens of thousands concurrent<sup class="fn">1</sup></span>
+          </div>
+          <div class="stat fragment fade-up">
+            <span class="num">80–90%</span>
+            <span class="lbl">of RL wall-clock time is rollouts — the environment
+              <em>is</em> the bottleneck<sup class="fn">1</sup><sup class="fn">2</sup></span>
+          </div>
+        </div>
+        <p class="anim-rise-2"><strong>My take:</strong> hands are taught in gyms.
+           The environment became the data engine — and the moat.</p>
+        <div class="footnotes">
+          <span><sup>1</sup><a href="https://blog.guanghan.ai/post/260409_env_scaling/">guanghan.ai, "Enter the Scaling of RL Environments"</a>, 2026-04-09 — reported figures, not official</span>
+          <span><sup>2</sup><a href="https://www.lesswrong.com/posts/HsLWpZ2zad43nzvWi/trust-me-bro-just-one-more-rl-scale-up-this-one-will-be-the">LessWrong, "…one more RL scale up…"</a>, 2025-09-03 — environment quality as the bottleneck</span>
+          <span><sup>3</sup><a href="https://sapphireventures.com/blog/reinforcement-learning-environments-ai-agents/">Sapphire Ventures, "Reinforcement Learning: Learning by Doing"</a>, 2026-04-13</span>
+          <span class="fn-more">Full URLs: references.md § Training methods</span>
+        </div>
+        <aside class="notes">
+          你听到的传闻是真的，而且有据可查。
+          现在头部实验室的训练方式是"环境工厂"：程序自动合成任务
+          （一个带失败测试的代码仓库、一个故意弄坏的服务器），
+          为每个任务启动一个隔离的 Docker 容器，让模型在里面真刀真枪地干很多轮，
+          最后跑测试套件给出程序化奖励，喂给 GRPO 更新参数。这就是 RLVR 的工业化形态。
+          规模有多大？据报道 Anthropic 每年在 RL 环境开发上花数千万美元，
+          OpenAI 给环境供应商签七位数合同；MiniMax 能 10 秒拉起 5000 多个隔离环境、
+          数万并发；一次训练里 80-90% 的时间花在 rollout（模型在环境里实操）上。
+          学术界同样在跟进：arXiv 上有专门研究终端环境规模化的论文，
+          字节的 AgentGym-RL 拿了 ICLR 2026 Oral。
+          LessWrong 上甚至有文章吐槽"RL 扩展一直受限于环境太烂"——
+          连批评者都承认环境是瓶颈。
+          我的判断：AI 的"手"是在"健身房"里练出来的——环境就是数据引擎，也是护城河。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Case study · The Fable 5 files</p>
+        <h2>How is a Mythos-class model trained? The clues</h2>
+        <div class="cards">
+          <div class="card fragment fade-up">
+            <span class="card-title">Trained inside graded environments</span>
+            Fable 5 learned to notice when it's being graded — and the system card
+            traces that to <strong>exploitable graders in its own RL training
+            environments</strong>.<sup class="fn">1</sup>
+          </div>
+          <div class="card fragment fade-up">
+            <span class="card-title">Reasoning is trained, never dictated</span>
+            An <strong>accidental chain-of-thought supervision</strong> bug during
+            training was disclosed as a safety incident — readable CoT is a
+            monitored asset.<sup class="fn">1</sup>
+          </div>
+          <div class="card fragment fade-up">
+            <span class="card-title">Post-training &gt; pre-training</span>
+            Cursor disclosed a <strong>20× RL scale-up</strong> where post-training
+            compute passed pre-training; Anthropic credits its 2026 gains to
+            CAI + RL.<sup class="fn">3</sup>
+          </div>
+          <div class="card fragment fade-up">
+            <span class="card-title">Safety is a wrapper</span>
+            Alignment training (constitution), then deployment-time probes,
+            classifiers, and fallback routing — even silent PEFT downgrades on
+            ~0.03% of traffic.<sup class="fn">1</sup><sup class="fn">2</sup>
+          </div>
+        </div>
+        <p class="anim-rise-2"><strong>My take:</strong> the recipe is public — the
+           <strong>task distributions and reward signals</strong> are the real moat.</p>
+        <div class="footnotes">
+          <span><sup>1</sup><a href="https://www-cdn.anthropic.com/d00db56fa754a1b115b6dd7cb2e3c342ee809620.pdf">Anthropic, "Claude Fable 5 &amp; Claude Mythos 5 System Card"</a> (264 pp.), 2026-06-09</span>
+          <span><sup>2</sup><a href="https://shivam2003.com/posts/claude-fable-5-mythos-5-system-card">Shivam (cvam.sight), system-card read-through</a>, Jun 2026 — third-party summary</span>
+          <span><sup>3</sup><a href="https://www.digitalapplied.com/blog/post-training-revolution-rl-new-moat-2026">Digital Applied, "The Post-Training Revolution: RL Is the New Moat"</a>, 2026-05-17</span>
+          <span class="fn-more">Full URLs: references.md § Training methods</span>
+        </div>
+        <aside class="notes">
+          这页是"侦探时间"：Fable 5 的配方保密，但 264 页的 system card 泄露了线索。
+          第一，它有"评分器意识"——会判断自己是不是在被测试，而这种意识集中出现在
+          训练环境里评分器真有漏洞的任务上，说明它是在海量可自动打分的 RL 环境里训出来的。
+          第二，card 披露了一起事故：技术错误导致对小部分样本意外施加了思维链监督，
+          这被当作安全事件上报——说明推理靠 RL 涌现，而 CoT 是刻意保护的安全资产。
+          第三，算力结构反转：Cursor 公开承认后训练算力超过预训练（20 倍 RL 扩展），
+          Anthropic 也把 2026 年的提升归因于 CAI+RL。小米罗福莉说 Fable 5 本质是
+          预训练、数据、RL 三维 scaling 的阶段性成果——我同意。
+          第四，安全是包装层：对齐训练之外，部署时还有探针、分类器、降级路由，
+          甚至用 PEFT 静默削弱特定能力。
+          结论：配方是公开的，真正的护城河是任务分布和奖励信号。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Full circle</p>
+        <h2>Back to my two stories</h2>
+        <div class="cards">
+          <div class="card fragment fade-up">
+            <span class="card-title">GoPro recovery</span>
+            The agent loop over forensic tools:
+            hex-dump → hypothesize → run tool → verify.
+          </div>
+          <div class="card fragment fade-up">
+            <span class="card-title">USB diagnosis</span>
+            Systematic hypothesis testing, like an engineer — not a lucky guess.
+          </div>
+          <div class="card fragment fade-up">
+            <span class="card-title">Not magic</span>
+            <strong>Trained behavior + tool access.</strong>
+          </div>
+        </div>
+        <p class="anim-rise-2" style="margin-top:0.9em">The shift: from
+           <em>"AI gives answers"</em> to <strong>"AI runs the process"</strong>.</p>
+        <aside class="notes">
+          现在回扣开头的两个故事。
+          GoPro 恢复，本质就是 Agent 循环套在取证工具上：先 dump 原始数据观察，
+          提出假设，跑工具，验证结果；USB 诊断则是工程师式的系统性排除法。
+          这不是魔法，是"训练出来的行为 + 工具权限"的组合。
+          所以 2026 年的转变，不是 AI 给的答案更漂亮了，
+          而是 AI 开始亲自跑整个解决问题的流程——人退到验收的位置。
+        </aside>
+      </section>
+
+      <!-- ============================================================
+           Part 4 — What's next. Opinions; keep "My take" markers.
+           ============================================================ -->
+
+      <section class="divider" data-background-gradient="linear-gradient(135deg,#241a08,#4a3607)">
+        <span class="part-no">04</span>
+        <h2>What's next</h2>
+        <h3>My takes, and questions I can't answer</h3>
+        <aside class="notes">
+          最后一部分全是个人观点和开放问题，和前面的事实部分明确区分开。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">My takes · Opinion</p>
+        <h2>Three takes for engineers</h2>
+        <div class="stats" style="align-items:stretch">
+          <div class="stat fragment fade-up" style="max-width:270px;text-align:left">
+            <span class="num">01</span>
+            <span class="lbl" style="max-width:270px;font-size:0.5em">Value shifts from
+              <strong>writing code</strong> to <strong>designing systems +
+              verifying AI output</strong></span>
+          </div>
+          <div class="stat fragment fade-up" style="max-width:270px;text-align:left">
+            <span class="num">02</span>
+            <span class="lbl" style="max-width:270px;font-size:0.5em">Review skills, taste, and
+              <strong>problem decomposition</strong> become the real leverage</span>
+          </div>
+          <div class="stat fragment fade-up" style="max-width:270px;text-align:left">
+            <span class="num">03</span>
+            <span class="lbl" style="max-width:270px;font-size:0.5em">Agents keep absorbing
+              "mid-level implementation" work — labs now sell into
+              <strong>consulting / enterprise delivery</strong><sup class="fn">1</sup></span>
+          </div>
+        </div>
+        <div class="footnotes">
+          <span><sup>1</sup><a href="https://nerdleveltech.com/openai-anthropic-private-equity-consulting-ventures">nerdleveltech on OpenAI's &amp; Anthropic's enterprise ventures</a>, 2026-05-04 — takes 01 &amp; 02 are opinion</span>
+          <span class="fn-more">Full URLs: references.md § Industry &amp; capital</span>
+        </div>
+        <aside class="notes">
+          三个判断，都是" My take "。
+          第一，工程师的价值在从"写代码"转向"设计系统 + 验证 AI 的输出"——
+          我两个故事里做的其实就是提出好问题和验收结果。
+          第二，代码审查能力、技术品味、把大问题拆小的能力，变成真正的杠杆。
+          第三，Agent 会持续吃掉"中级实现"类工作——OpenAI 和 Anthropic 今年五月
+          甚至同一天宣布成立面向企业交付的服务公司，直接杀进咨询业，这是事实不是观点。
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Open questions</p>
+        <h2>Questions I can't answer</h2>
+        <div class="cards">
+          <div class="card fragment fade-up">
+            <span class="card-title">Verification at scale</span>
+            How do we verify agent work beyond "it looks right"?
+          </div>
+          <div class="card fragment fade-up">
+            <span class="card-title">The talent pipeline</span>
+            If juniors delegate implementation on day one, where do seniors come from?
+          </div>
+          <div class="card fragment fade-up">
+            <span class="card-title">The curve</span>
+            Does capability flatten — or does the monthly cadence just keep going?
+          </div>
+        </div>
+        <p class="anim-rise-2" style="margin-top:0.9em">Discussion welcome —
+           find me after the talk.</p>
+        <aside class="notes">
+          留三个我自己也没答案的问题：
+          一是规模化的验证——Agent 干的活越来越多，怎么避免"看起来对"就放行；
+          二是人才梯队——新人第一天就把实现外包给 AI，未来的高级工程师从哪来；
+          三是能力曲线——月更式的迭代到底会不会放缓。
+          然后进入讨论环节。
+        </aside>
+      </section>
+
       <!-- References slide: keep in sync with references.md -->
       <section>
+        <p class="kicker">Fin</p>
         <h2>References</h2>
         <p>All sources: <a href="references.md">references.md</a> (in the GitHub repo)</p>
+        <p class="citation">https://ai-in-2026.xiaomum.com</p>
         <aside class="notes">
           结束语：感谢聆听，引用全部公开在仓库里，欢迎扫码或访问域名查看。
         </aside>
@@ -209,9 +903,23 @@
   <script>
     Reveal.initialize({
       hash: true,
+      width: 1280,
+      height: 800,
+      margin: 0.04,
+      minScale: 0.2,
+      maxScale: 2.0,
       slideNumber: 'c/t',
       transition: 'slide',
+      transitionSpeed: 'slow',
+      backgroundTransition: 'fade',
+      fragments: true,
+      autoAnimateDuration: 0.8,
       plugins: [ RevealNotes, RevealHighlight ]
+    });
+    // Open all footnote source links in a new tab
+    document.querySelectorAll('.footnotes a').forEach(function (a) {
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
     });
   </script>
 </body>

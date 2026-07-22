@@ -40,7 +40,8 @@ Conventions (also documented as an HTML comment at the top of `index.html`):
 - One idea per slide; duplicate an existing `<section>` block to add a slide.
 - Images go in `images/` and are referenced as `images/xxx.png`.
 - Every external fact/number/quote gets an entry in `references.md` and a
-  `<p class="citation">Source: …</p>` line on the slide.
+  numbered footnote on the slide: `<sup class="fn">N</sup>` at the claim plus a
+  `<div class="footnotes">…</div>` block at the bottom of the slide.
 - Mark personal opinions/predictions distinctly from sourced facts
   (e.g. prefix with "My take:").
 
