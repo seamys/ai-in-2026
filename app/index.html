@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>HANDS — Two Diagnostic Stories from AI-native 2026</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23fffdf4'/%3E%3Cpath d='M16 5l9 11-9 11L7 16z' fill='%238a5a00'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/three.module.js"
+  }
+}
+</script>
+</head>
+<body>
+<canvas id="gl"></canvas>
+
+<!-- DOM overlay layer for projected labels / check cards -->
+<div id="overlay" aria-hidden="true"></div>
+
+<div id="ui">
+  <header id="topbar">
+    <div class="brand">
+      <span class="brand-mark">◈</span>
+      <span class="brand-name">HANDS</span>
+      <span class="brand-sub">Two Diagnostic Stories · AI-native 2026</span>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button id="tab-a" class="tab active" role="tab">1 · Byte Surgeon</button>
+      <button id="tab-b" class="tab" role="tab">2 · Sixty Seconds</button>
+    </nav>
+    <div class="transport">
+      <button id="btn-auto"  class="tbtn" title="Toggle auto-narrative (A)">AUTO</button>
+      <button id="btn-pause" class="tbtn" title="Pause / resume (Space)">⏸</button>
+      <button id="btn-reset" class="tbtn" title="Reset story (R)">⟳</button>
+      <button id="btn-next"  class="tbtn" title="Next beat (N)">⏭</button>
+      <button id="btn-hide"  class="tbtn" title="Hide HUD (H)">◱</button>
+      <button id="btn-full"  class="tbtn" title="Fullscreen (F)">⛶</button>
+      <button id="btn-mute"  class="tbtn" title="Mute / unmute (M)">🔇</button>
+      <select id="sel-quality" class="tbtn quality" title="Quality profile">
+        <option value="standard">Standard</option>
+        <option value="high" selected>High</option>
+        <option value="cinematic">Cinematic</option>
+      </select>
+      <button id="btn-params" class="tbtn" title="Parameters (P)">⚙</button>
+    </div>
+  </header>
+
+  <aside id="telemetry-a" class="telemetry"></aside>
+  <aside id="telemetry-b" class="telemetry hidden"></aside>
+
+  <div id="timer" class="hidden"><span id="timer-value">0:00</span><span id="timer-label">DIAGNOSTIC ELAPSED</span></div>
+
+  <div id="opslog" class="opslog"></div>
+  <div id="caption" class="caption"></div>
+
+  <aside id="parampanel" class="hidden">
+    <div class="pp-head">
+      <span>PARAMETERS</span>
+      <button id="pp-close" class="tbtn">✕</button>
+    </div>
+    <div id="pp-body"></div>
+    <div class="pp-foot">
+      <button id="pp-defaults" class="tbtn">Restore defaults</button>
+    </div>
+  </aside>
+
+  <div id="debug" class="hidden"></div>
+  <div id="toast"></div>
+
+  <footer id="helpbar">
+    <span>1/2 story</span><span>Space pause</span><span>N next</span><span>R reset</span>
+    <span>A auto</span><span>H hud</span><span>F full</span><span>M sound</span><span>0–5 debug</span>
+    <span>drag orbit · wheel zoom</span>
+  </footer>
+</div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

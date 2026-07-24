@@ -77,6 +77,19 @@
   letter-spacing: 0.02em;
 }
 
+/* link to the live animation (app/) */
+.reveal .demo-link {
+  font-size: 0.42em;
+  margin-top: 1em;
+  letter-spacing: 0.02em;
+}
+.reveal .demo-link a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--accent);
+}
+.reveal .demo-link a:hover { border-bottom-style: solid; }
+
 /* slide images */
 .reveal section img {
   max-height: 55vh;
